@@ -60,27 +60,59 @@ fs.appendFile(path.join(__dirname, 'main', 'inPerson', 'inPerson.txt'), `${inPer
     }
 })
 
-const changeFilesPlace = () =>{
-    if (path.join(__dirname,'main','inPerson','inPerson.txt')) {
-        fs.rename(path.join(__dirname,'main','inPerson','inPerson.txt'),
-            path.join(__dirname,'main','online','inPerson.txt'),(err) => {
-                if (err) {
-                    console.log(err);
-                    throw err;
-                }
-            })
-    }
 
-    if (path.join(__dirname,'main','online','online.txt')) {
-        fs.rename(path.join(__dirname,'main','online','online.txt'),
-            path.join(__dirname,'main','inPerson','online.txt'),(err) => {
+function changeFileData() {
+
+    fs.readFile(path.join(__dirname, 'main', 'online', 'online.txt'), (err, data) => {
+        if (err) {
+            console.log(err)
+            throw err
+        }
+        fs.readFile(path.join(__dirname, 'main', 'inPerson', 'inPerson.txt'), (err, info) => {
+            if (err) {
+                console.log(err)
+                throw err
+            }
+            fs.writeFile(path.join(__dirname, 'main', 'online', 'online.txt'), info, (err) => {
+
                 if (err) {
-                    console.log(err);
-                    throw err;
+                    console.log(err)
+                    throw err
                 }
+                fs.writeFile(path.join(__dirname, 'main', 'inPerson', 'inPerson.txt'), data, (err) => {
+
+                    if (err) {
+                        console.log(err)
+                        throw err
+                    }
+                })
             })
-    }
+        })
+    })
 }
-changeFilesPlace()
 
+changeFileData()
 
+// поміняти файли місцями
+// const changeFilesPlace = () =>{
+//     if (path.join(__dirname,'main','inPerson','inPerson.txt')) {
+//         fs.rename(path.join(__dirname,'main','inPerson','inPerson.txt'),
+//             path.join(__dirname,'main','online','inPerson.txt'),(err) => {
+//                 if (err) {
+//                     console.log(err);
+//                     throw err;
+//                 }
+//             })
+//     }
+//
+//     if (path.join(__dirname,'main','online','online.txt')) {
+//         fs.rename(path.join(__dirname,'main','online','online.txt'),
+//             path.join(__dirname,'main','inPerson','online.txt'),(err) => {
+//                 if (err) {
+//                     console.log(err);
+//                     throw err;
+//                 }
+//             })
+//     }
+// }
+// changeFilesPlace()
