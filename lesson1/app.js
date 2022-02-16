@@ -14,6 +14,12 @@
 const path = require("path");
 const fs = require('fs')
 
+fs.mkdir(path.join(__dirname, 'main'), {recursive: true}, (err) => {
+    if (err) {
+        console.log(err);
+        throw err;
+    }
+})
 
 fs.mkdir(path.join(__dirname, 'main', "online"), {recursive: true}, (err) => {
     if (err) {
@@ -29,54 +35,52 @@ fs.mkdir(path.join(__dirname, 'main', "InPerson"), {recursive: true}, (err) => {
     }
 })
 
-fs.appendFile(path.join(__dirname, 'main', 'online', 'onlineUsers.txt'), 'name: "Andrii", \n' +
-    'age: 22, \n' +
-    'city: "Lviv"', (err) => {
+const onlineUsers = [
+    {name: 'Denys', age: 20, city: 'Lviv' },
+    {name: 'Victoria', age: 20, city: 'Lviv' }
+];
+const inPersonUsers = [
+    {name: 'Ivan', age: 50, city: 'Odessa' },
+    {name: 'Masha', age: 32, city: 'Poltava' }
+];
+
+fs.appendFile(path.join(__dirname, 'main', 'online', 'online.txt'), `${onlineUsers.map(user =>
+    `\n\nNAME: ${user.name} \nAGE: ${user.age} \nCITY: ${user.city}`)}`, (err) => {
     if (err) {
         console.log(err);
         throw err;
     }
 })
 
-fs.appendFile(path.join(__dirname, 'main', 'inPerson', 'inPersonUsers.txt'), 'name: "Den",\n' +
-    'age: 222,\n' +
-    'city: "Lviv"', (err) => {
+fs.appendFile(path.join(__dirname, 'main', 'inPerson', 'inPerson.txt'), `${inPersonUsers.map(person =>
+    `\n\nNAME: ${person.name} \nAGE: ${person.age} \nCITY: ${person.city}`)}`, (err) => {
     if (err) {
         console.log(err);
         throw err;
     }
 })
 
-fs.writeFile(path.join(__dirname,'main','online','onlineUsers.txt'),'name: Andrii", \n' +
-    'age: 22, \n' +
-    'city: "Lviv"',(err)=>{
-    if (err) {
-        console.log(err);
-        throw err;
+const changeFilesPlace = () =>{
+    if (path.join(__dirname,'main','inPerson','inPerson.txt')) {
+        fs.rename(path.join(__dirname,'main','inPerson','inPerson.txt'),
+            path.join(__dirname,'main','online','inPerson.txt'),(err) => {
+                if (err) {
+                    console.log(err);
+                    throw err;
+                }
+            })
     }
-})
-fs.writeFile(path.join(__dirname,'main','online','onlineUsers.txt'),'name: "Den",\n' +
-    'age: 222,\n' +
-    'city: "Lviv"',(err)=>{
-    if (err) {
-        console.log(err);
-        throw err;
-    }
-})
 
-//перестановка файлів текстових файлів місцями
-// fs.rename(path.join(__dirname, 'main', 'inPerson', 'inPersonUsers.txt'),
-//     path.join(__dirname, 'main', 'online', 'inPersonUsers.txt'), (err) => {
-//         if (err) {
-//             console.log(err);
-//             throw err
-//         }
-//     })
-//
-// fs.rename(path.join(__dirname, 'main', 'online', 'onlineUsers.txt'),
-//     path.join(__dirname, 'main', 'inPerson', 'onlineUsers.txt'), (err) => {
-//         if (err) {
-//             console.log(err);
-//             throw err
-//         }
-//     })
+    if (path.join(__dirname,'main','online','online.txt')) {
+        fs.rename(path.join(__dirname,'main','online','online.txt'),
+            path.join(__dirname,'main','inPerson','online.txt'),(err) => {
+                if (err) {
+                    console.log(err);
+                    throw err;
+                }
+            })
+    }
+}
+changeFilesPlace()
+
+
