@@ -111,14 +111,14 @@ fs.mkdir(path.join(__dirname, 'Task3', 'example2'), err => {
     }
 })
 
-fs.writeFile(path.join(__dirname, 'Task3', 'file1.txt'), 'Hello Octen', err => {
+fs.writeFile(path.join(__dirname, 'Task3', 'file1.txt'), 'Hello ', err => {
     if (err) {
         console.log(err)
         throw err
     }
 })
 
-fs.writeFile(path.join(__dirname, 'Task3', 'file2.txt'), 'Good Evening', err => {
+fs.writeFile(path.join(__dirname, 'Task3', 'file2.txt'), 'Help', err => {
     if (err) {
         console.log(err)
         throw err
