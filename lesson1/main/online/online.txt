@@ -1,0 +1,9 @@
+
+
+NAME: Ivan 
+AGE: 50 
+CITY: Odessa,
+
+NAME: Masha 
+AGE: 32 
+CITY: Poltava
